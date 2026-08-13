@@ -61,8 +61,14 @@ export function SiteFooter() {
         <Brand />
         <p>Built for a more focused Minecraft desktop experience.</p>
         <nav aria-label="Footer navigation">
-          <Link href="/trust">Trust</Link>
           <Link href="/download">Download</Link>
+          <Link href="/features">Features</Link>
+          <Link href="/trust">Trust &amp; Safety</Link>
+          <Link href="/faq">FAQ</Link>
+          <Link href="/docs">Documentation</Link>
+          <Link href="/changelog">Changelog</Link>
+          <Link href="/privacy">Privacy</Link>
+          <Link href="/terms">Terms</Link>
           <a href="https://discord.com" rel="noreferrer" target="_blank">
             Discord
           </a>
