@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { ReactNode } from "react";
 
 const navigation = [
@@ -11,11 +12,7 @@ const navigation = [
 function Brand() {
   return (
     <Link aria-label="ClawClient home" className="brand" href="/">
-      <span aria-hidden="true" className="brand__mark">
-        <span />
-        <span />
-        <span />
-      </span>
+      <Image alt="" className="brand__mark" height={34} src="/claw-logo.webp" width={34} />
       <span>ClawClient</span>
     </Link>
   );
@@ -33,7 +30,7 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <Link className="button button--quiet site-header__action" href="/download">
+        <Link className="button button--primary site-header__action" href="/download">
           Get ClawClient
         </Link>
         <details className="site-menu">

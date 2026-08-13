@@ -1,30 +1,29 @@
 import type { Metadata } from "next";
 
-import { Button, Section, TrustCallout } from "@/components/ui";
+import { Button, Section, StatusBadge, TrustCallout } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Features",
   description:
-    "Explore the ClawClient product direction for optimized profiles, PvP utilities, mods, profiles, server discovery, accounts, and trust.",
+    "Explore ClawClient's Minecraft performance, PvP, mods, profiles, server discovery, account, and trust product direction.",
   alternates: {
     canonical: "/features",
   },
   openGraph: {
     title: "ClawClient features",
     description:
-      "A clear, status-labelled overview of the Minecraft client features ClawClient is building.",
+      "A clear overview of the Minecraft launcher and client capabilities ClawClient is building.",
     url: "/features",
   },
 };
 
 const featureLinks = [
   { href: "#performance", label: "Performance" },
-  { href: "#pvp", label: "PvP" },
+  { href: "#pvp", label: "PvP utility" },
   { href: "#mods", label: "Mods" },
   { href: "#profiles", label: "Profiles" },
   { href: "#servers", label: "Servers" },
   { href: "#accounts", label: "Accounts" },
-  { href: "#trust", label: "Trust" },
 ];
 
 const details = [
@@ -33,60 +32,66 @@ const details = [
     number: "01",
     eyebrow: "Performance",
     status: "In development",
-    title: "An optimized start, with the setup explained.",
+    tone: "development" as const,
+    title: "Start from a performance-focused profile.",
     body:
-      "ClawClient is being built around performance-oriented profile choices, so the important context is available before you launch. We will publish measurable performance results only when a reproducible benchmark is ready.",
-    points: ["Optimized profile direction", "Clear profile context", "No unsupported benchmark claims"],
+      "ClawClient is being built around optimized profile choices, with the Minecraft, loader, and channel context visible before launch. We will publish measurable performance results only with a reproducible benchmark.",
+    points: ["Claw Optimized profile direction", "Explicit channel context", "No unsupported FPS claims"],
   },
   {
     id: "pvp",
     number: "02",
-    eyebrow: "PvP utilities",
-    status: "In development",
+    eyebrow: "PvP utility",
+    status: "Planned",
+    tone: "planned" as const,
     title: "Useful competitive information, kept readable.",
     body:
-      "The PvP direction focuses on HUD and client utilities that help players understand their session. The goal is useful presentation and control, not automation or cheatware.",
-    points: ["Competitive HUD direction", "Intentional client utilities", "Clearer in-session information"],
+      "The PvP direction focuses on HUD and client utilities that help players understand their session. The intent is useful presentation and control, not automation or cheatware.",
+    points: ["Competitive HUD direction", "Intentional client utilities", "Clear in-session information"],
   },
   {
     id: "mods",
     number: "03",
     eyebrow: "Mods",
-    status: "Planned",
-    title: "Discover changes with their profile in view.",
+    status: "In development",
+    tone: "development" as const,
+    title: "Browse compatible content with the right context.",
     body:
-      "Mod discovery and compatibility work are planned around the profile they affect. Modrinth integration will be described as available only after the underlying launcher contract is ready.",
-    points: ["Profile-aware discovery", "Compatibility context", "Modrinth status shown honestly"],
+      "Mod discovery is designed around the profile it will change. Modrinth search and compatibility presentation stay separate from the trusted install and profile flow.",
+    points: ["Modrinth discovery", "Version and loader context", "Profile-aware decisions"],
   },
   {
     id: "profiles",
     number: "04",
     eyebrow: "Profiles & versions",
-    status: "In development",
+    status: "Available",
+    tone: "available" as const,
     title: "Recognize each Minecraft setup at a glance.",
     body:
-      "Profiles are intended to make version, loader, and mod context easier to scan. The product direction includes optimized, custom, and game-version setups without turning normal play into configuration work.",
-    points: ["Version and loader context", "Custom setup clarity", "Explicit readiness states"],
+      "Profiles are the center of the launcher experience: a clear place to understand Minecraft version, loader, account, and local game setup before you press Play.",
+    points: ["Minecraft version context", "Local profile selection", "Explicit launch readiness"],
   },
   {
     id: "servers",
     number: "05",
     eyebrow: "Server discovery",
     status: "Planned",
-    title: "Find compatible servers from the same flow.",
+    tone: "planned" as const,
+    title: "Join only when the setup is truly compatible.",
     body:
-      "Server discovery is planned as a reusable launcher experience. A featured server will only appear with a real compatibility and connection path; this page does not imply that any particular server is ready.",
-    points: ["Compatibility-first direction", "No implied endorsements", "Real connection state before launch"],
+      "Server discovery will use compatibility data to guide profile selection and preparation. A featured server is not presented as playable until its real profile and connection flow are ready.",
+    points: ["Compatibility-first direction", "No implied endorsements", "Typed connection state"],
   },
   {
     id: "accounts",
     number: "06",
     eyebrow: "Accounts & local profiles",
-    status: "Planned",
-    title: "Make identity choices understandable.",
+    status: "Available",
+    tone: "available" as const,
+    title: "Keep your player identity clear.",
     body:
-      "Future account and offline/local profile support will follow the platform and launcher contracts. The website will describe those flows plainly when the authoritative implementation is ready.",
-    points: ["Platform-backed account state", "Offline/local profile explanation", "No parallel identity system"],
+      "ClawClient supports Microsoft account selection and local profiles. The launcher keeps identity choices understandable while each server retains its own authentication policy.",
+    points: ["Microsoft account selection", "Local profile support", "Clear authentication boundaries"],
   },
 ];
 
@@ -96,11 +101,11 @@ export default function FeaturesPage() {
       <Section className="features-hero">
         <div className="features-hero__copy">
           <p className="eyebrow">ClawClient features</p>
-          <h1>Built around a better way to start Minecraft.</h1>
+          <h1>A sharper Minecraft launcher, built around your setup.</h1>
           <p>
-            This is the detailed product direction for ClawClient. Each area is labelled by
-            its current state so you can see what is in development, what is planned, and what
-            still depends on a real product contract.
+            Explore the client stack behind ClawClient: performance-focused profiles, PvP
+            utility, mods, versions, servers, and accounts. Each capability carries a clear
+            release state.
           </p>
           <Button href="/download">Download ClawClient</Button>
         </div>
@@ -116,12 +121,11 @@ export default function FeaturesPage() {
 
       <Section className="feature-details">
         <div className="feature-details__intro">
-          <p className="eyebrow">Product direction</p>
-          <h2>Clear capability, clear status.</h2>
+          <p className="eyebrow">Product capability</p>
+          <h2>Clear status. Concrete player value.</h2>
           <p>
-            ClawClient is not presenting a finished feature list before the product is ready.
-            The detail below explains the intended player benefit without making unverified
-            performance, security, or availability claims.
+            ClawClient does not present an unfinished wish list as a finished product. The
+            detail below explains the benefit, current state, and boundaries for every area.
           </p>
         </div>
         <div className="feature-details__list">
@@ -131,7 +135,7 @@ export default function FeaturesPage() {
               <div className="feature-detail__content">
                 <div className="feature-detail__meta">
                   <p className="eyebrow">{feature.eyebrow}</p>
-                  <span className="status">{feature.status}</span>
+                  <StatusBadge tone={feature.tone}>{feature.status}</StatusBadge>
                 </div>
                 <h2>{feature.title}</h2>
                 <p>{feature.body}</p>
@@ -152,7 +156,7 @@ export default function FeaturesPage() {
           <h2>Product claims should be as clear as product controls.</h2>
           <p>
             ClawClient will only make a security, release, account, or performance claim when
-            the shipped implementation supports it. Until then, the page keeps the status clear.
+            the shipped implementation supports it. Until then, the current state stays visible.
           </p>
           <Button href="/trust" tone="quiet">
             Read Trust &amp; Safety

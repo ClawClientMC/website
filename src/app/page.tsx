@@ -1,44 +1,94 @@
 import {
   Button,
   FaqAccordion,
-  FeatureCard,
-  ScreenshotFrame,
+  LauncherPreview,
   Section,
+  StatusBadge,
   TrustCallout,
 } from "@/components/ui";
+
+const capabilities = [
+  {
+    label: "Claw Optimized",
+    status: "In development",
+    tone: "development" as const,
+    title: "Profiles tuned for the way you play",
+    body: "Choose a clear performance-focused setup without losing sight of its Minecraft and loader context.",
+    wide: true,
+  },
+  {
+    label: "Performance",
+    status: "In development",
+    tone: "development" as const,
+    title: "Less manual tuning",
+    body: "Performance direction is built into the profile experience. Benchmark claims will arrive only with reproducible tests.",
+  },
+  {
+    label: "PvP client",
+    status: "Planned",
+    tone: "planned" as const,
+    title: "Useful HUD, not noise",
+    body: "Competitive HUD and client utilities are being designed as readable, intentional tools.",
+  },
+  {
+    label: "Mods",
+    status: "In development",
+    tone: "development" as const,
+    title: "Modrinth in context",
+    body: "Browse compatible content with the profile, version, and loader choices it will affect.",
+  },
+  {
+    label: "Profiles & versions",
+    status: "Available",
+    tone: "available" as const,
+    title: "Your setup stays recognizable",
+    body: "Keep local profiles, Minecraft versions, and launch choices in one focused desktop flow.",
+    wide: true,
+  },
+  {
+    label: "Server discovery",
+    status: "Planned",
+    tone: "planned" as const,
+    title: "Find compatible places to play",
+    body: "Server discovery will show a connection path only when the compatible profile is truly ready.",
+  },
+  {
+    label: "Accounts",
+    status: "Available",
+    tone: "available" as const,
+    title: "Microsoft and local profiles",
+    body: "Choose the identity that fits your session without burying it in launcher settings.",
+  },
+];
 
 const previewQuestions = [
   {
     question: "What is ClawClient?",
     answer:
-      "ClawClient is a desktop Minecraft client in development, focused on a clearer launch experience, optimized profiles, PvP utility, mods, and servers.",
+      "ClawClient is a desktop Minecraft launcher and client direction focused on performance, PvP utility, profiles, mods, and a clearer start to every session.",
   },
   {
-    question: "Can I download it on my phone?",
+    question: "Can I use a Microsoft or local profile?",
     answer:
-      "ClawClient is a desktop launcher. This site remains useful on mobile so you can explore the product and return to download it on your computer.",
+      "The launcher supports Microsoft account selection and local profiles. Server acceptance still depends on each server's own authentication rules.",
   },
   {
     question: "Are performance benchmarks available?",
     answer:
-      "Not yet. We will only publish performance numbers with a reproducible benchmark and clear test conditions.",
+      "Not yet. Performance numbers will only be published with their hardware, game version, settings, profile, and comparison method.",
   },
 ];
-
-function Status({ children }: Readonly<{ children: string }>) {
-  return <span className="status">{children}</span>;
-}
 
 export default function Home() {
   return (
     <main id="main-content">
-      <Section className="hero" id="top">
+      <Section className="hero">
         <div className="hero__copy">
-          <p className="eyebrow">ClawClient / In development</p>
-          <h1>Minecraft, optimized.</h1>
+          <p className="eyebrow">Minecraft performance / PvP launcher</p>
+          <h1>Your Minecraft setup, optimized.</h1>
           <p className="hero__lede">
-            A focused desktop client for better setup, useful PvP tools, and the profiles
-            you actually want to play.
+            ClawClient keeps performance-focused profiles, PvP utility, mods, versions, and
+            accounts in a focused desktop launcher built for the next time you play.
           </p>
           <div className="button-row">
             <Button href="/download">Download ClawClient</Button>
@@ -47,148 +97,75 @@ export default function Home() {
             </Button>
           </div>
           <p className="hero__note">
-            Built for desktop. Explore the client here, then download when you are at your PC.
+            Desktop launcher for Minecraft players. Product capabilities are labelled by their
+            current release state below.
           </p>
         </div>
-        <ScreenshotFrame label="Conceptual launcher interface — product UI in progress">
-          <div aria-hidden="true" className="concept-screen">
-            <div className="concept-screen__rail">
-              <span />
-              <span />
-              <span />
-              <span />
-            </div>
-            <div className="concept-screen__main">
-              <div className="concept-screen__label">Your next session</div>
-              <div className="concept-screen__title">Ready when you are.</div>
-              <div className="concept-screen__meta">Profile selection · Mod context · Clear play state</div>
-              <div className="concept-screen__line" />
-              <div className="concept-screen__line concept-screen__line--short" />
-              <div className="concept-screen__play">Play</div>
-            </div>
-          </div>
-        </ScreenshotFrame>
+        <LauncherPreview />
       </Section>
 
-      <Section className="proof-section">
-        <div className="proof-intro">
-          <p className="eyebrow">One client, a clearer start</p>
-          <h2>Less time tuning. More time in-game.</h2>
+      <Section className="product-brief">
+        <div className="product-brief__copy">
+          <p className="eyebrow">Built around the session</p>
+          <h2>Everything important stays close to Play.</h2>
           <p>
-            ClawClient brings the choices around a Minecraft session into one deliberate
-            desktop flow. The work is still in progress, and each area is being built with
-            the same goal: make the next useful action obvious.
+            ClawClient is designed as a premium gaming client, not a busy dashboard. The
+            launcher keeps the next useful choice visible: account, profile, compatible content,
+            and the game you want to start.
           </p>
         </div>
-        <dl className="proof-list">
+        <dl className="product-brief__rail">
           <div>
-            <dt>Performance</dt>
-            <dd>Optimized profile direction without published benchmark claims.</dd>
+            <dt>Claw Optimized</dt>
+            <dd>Performance-focused profile family with explicit channel and compatibility state.</dd>
           </div>
           <div>
-            <dt>PvP utility</dt>
-            <dd>Competitive HUD and client features, designed for useful play.</dd>
+            <dt>Play context</dt>
+            <dd>Profile, Minecraft version, mods, and identity stay understandable before launch.</dd>
           </div>
           <div>
-            <dt>Profiles</dt>
-            <dd>Clearer ways to move between the setups that fit your session.</dd>
+            <dt>Product direction</dt>
+            <dd>Every capability is shown as Available, In development, or Planned.</dd>
           </div>
         </dl>
       </Section>
 
-      <Section className="feature-section" id="features">
+      <Section className="capability-section" id="features">
         <div className="section-heading">
-          <p className="eyebrow">Performance / In development</p>
-          <h2>Start with an optimized profile, not a pile of settings.</h2>
-        </div>
-        <div className="feature-split">
-          <div className="feature-statement">
-            <Status>Planned capability</Status>
-            <p>
-              ClawClient is being built to make performance-oriented setups easier to
-              understand and choose. Any published FPS, memory, or startup comparison will
-              come with its test conditions.
-            </p>
+          <div>
+            <p className="eyebrow">Launcher capabilities</p>
+            <h2>A focused client stack for Minecraft players.</h2>
           </div>
-          <div className="signal-grid" aria-label="Performance product direction">
-            <div>
-              <span>01</span>
-              <strong>Clear profile context</strong>
-            </div>
-            <div>
-              <span>02</span>
-              <strong>Deliberate version choices</strong>
-            </div>
-            <div>
-              <span>03</span>
-              <strong>Less manual tuning</strong>
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      <Section className="foundation">
-        <div className="section-heading">
-          <p className="eyebrow">Made for the way you play</p>
-          <h2>Useful client features, without losing the thread.</h2>
-        </div>
-        <div className="feature-list">
-          <FeatureCard eyebrow="PvP / In development" title="Keep the important information close">
-            Competitive HUD and client utilities are planned as clear, intentional tools—not
-            automation or noise.
-          </FeatureCard>
-          <FeatureCard eyebrow="Mods / In development" title="Give every change its context">
-            Mod discovery, compatibility, and install choices are being designed around the
-            profile they affect.
-          </FeatureCard>
-          <FeatureCard eyebrow="Profiles / In development" title="Make each setup easy to recognize">
-            Move between optimized, custom, and game-version setups with fewer unclear states.
-          </FeatureCard>
-        </div>
-      </Section>
-
-      <Section className="servers-section">
-        <div className="servers-copy">
-          <p className="eyebrow">Servers / Planned</p>
-          <h2>Discover compatible servers from the same flow.</h2>
           <p>
-            Server discovery is planned for ClawClient. We will show featured experiences only
-            when their compatibility and connection flow are ready to support them.
+            Performance, PvP, mods, profiles, servers, and accounts all belong in the same
+            player-first flow.
           </p>
-          <Button href="/features" tone="quiet">
-            See the product direction
-          </Button>
         </div>
-        <div aria-hidden="true" className="server-grid">
-          <div className="server-grid__header">
-            <span>Server discovery</span>
-            <span>Planned</span>
-          </div>
-          <div className="server-grid__row">
-            <span />
-            <span />
-            <span />
-          </div>
-          <div className="server-grid__row">
-            <span />
-            <span />
-            <span />
-          </div>
-          <div className="server-grid__row">
-            <span />
-            <span />
-            <span />
-          </div>
+        <div className="capability-grid">
+          {capabilities.map((capability) => (
+            <article
+              className={"capability-card" + (capability.wide ? " capability-card--wide" : "")}
+              key={capability.label}
+            >
+              <div className="capability-card__top">
+                <span>{capability.label}</span>
+                <StatusBadge tone={capability.tone}>{capability.status}</StatusBadge>
+              </div>
+              <h3>{capability.title}</h3>
+              <p>{capability.body}</p>
+            </article>
+          ))}
         </div>
       </Section>
 
       <Section className="trust-section" id="trust">
         <TrustCallout>
-          <p className="eyebrow">Trust is part of the product</p>
-          <h2>Clear download, update, and account information should never be an afterthought.</h2>
+          <p className="eyebrow">Trust is part of the launcher</p>
+          <h2>Clear profile, account, update, and download states are part of a better start.</h2>
           <p>
-            We will explain what the client does, what a download contains, and which product
-            states are ready. Read the direction behind ClawClient as the launch surface grows.
+            ClawClient will only claim a security, release, or performance capability when the
+            product implementation supports it. No invented benchmarks, player counts, or
+            product promises.
           </p>
           <Button href="/trust" tone="quiet">
             Visit Trust &amp; Safety
@@ -198,16 +175,16 @@ export default function Home() {
 
       <Section className="final-section">
         <div className="final-cta">
-          <p className="eyebrow">Follow the launch</p>
-          <h2>Ready to see a sharper Minecraft start?</h2>
+          <p className="eyebrow">Get ready to play</p>
+          <h2>Make your next Minecraft setup a clear one.</h2>
           <p>
-            Explore what ClawClient is building now, then return to download on desktop when
+            Explore the ClawClient product direction now, then download from your desktop when
             the release is ready.
           </p>
           <div className="button-row">
             <Button href="/download">Download ClawClient</Button>
             <Button href="/features" tone="quiet">
-              View features
+              Explore features
             </Button>
           </div>
         </div>
