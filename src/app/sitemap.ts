@@ -1,13 +1,21 @@
 import type { MetadataRoute } from "next";
 
 import { publicEnvironment } from "@/env";
+import { getAllDocs } from "@/lib/docs";
 import { getReleases } from "@/lib/releases";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const releases = await getReleases();
+  const docs = getAllDocs();
 
   const releaseEntries: MetadataRoute.Sitemap = releases.map((release) => ({
     url: `${publicEnvironment.siteUrl}/changelog/${release.version}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  const docEntries: MetadataRoute.Sitemap = docs.map((doc) => ({
+    url: `${publicEnvironment.siteUrl}/docs/${doc.slug}`,
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));
@@ -33,6 +41,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.7,
     },
+    {
+      url: `${publicEnvironment.siteUrl}/docs`,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
     ...releaseEntries,
+    ...docEntries,
   ];
 }
