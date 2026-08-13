@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import {
   Button,
   FaqAccordion,
@@ -6,6 +8,27 @@ import {
   StatusBadge,
   TrustCallout,
 } from "@/components/ui";
+
+export const metadata: Metadata = {
+  title: "ClawClient | Performance and PvP for Minecraft",
+  description:
+    "ClawClient keeps performance-focused profiles, PvP utility, mods, versions, and accounts in a focused desktop launcher built for the next time you play Minecraft.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "ClawClient | Performance and PvP for Minecraft",
+    description:
+      "ClawClient keeps performance-focused profiles, PvP utility, mods, versions, and accounts in a focused desktop launcher built for the next time you play Minecraft.",
+    url: "/",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ClawClient | Performance and PvP for Minecraft",
+    description:
+      "ClawClient keeps performance-focused profiles, PvP utility, mods, versions, and accounts in a focused desktop launcher built for the next time you play Minecraft.",
+  },
+};
 
 const capabilities = [
   {
