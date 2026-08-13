@@ -1054,6 +1054,14 @@ p {
   font-style: italic;
 }
 
+.download-meta {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  font-family: monospace;
+  word-break: break-all;
+}
+
 @media (max-width: 66rem) {
   .hero > .container {
     grid-template-columns: minmax(0, 0.8fr) minmax(25rem, 1.2fr);

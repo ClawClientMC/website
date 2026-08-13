@@ -2,12 +2,24 @@ import { publicEnvironment } from "@/env";
 
 export type ReleaseChannel = "stable" | "beta" | "alpha";
 
+export type Platform = "windows" | "macos" | "linux";
+
+export type DownloadArtifact = {
+  platform: Platform;
+  architecture: string;
+  url: string;
+  filename: string;
+  sha256?: string;
+  signature?: string;
+};
+
 export type ReleaseEntry = {
   version: string;
   date: string;
   channel: ReleaseChannel;
   title: string;
   summary: string;
+  downloads: ReadonlyArray<DownloadArtifact>;
   changes: ReadonlyArray<{
     category: string;
     items: ReadonlyArray<string>;
@@ -22,6 +34,26 @@ const fallbackReleases: ReadonlyArray<ReleaseEntry> = [
     title: "Initial public release",
     summary:
       "First public release of the ClawClient desktop launcher for Minecraft.",
+    downloads: [
+      {
+        platform: "windows",
+        architecture: "x64",
+        url: "https://github.com/ClawClientMC/website/releases/download/v0.1.0/ClawClient-0.1.0-x64-setup.exe",
+        filename: "ClawClient-0.1.0-x64-setup.exe",
+      },
+      {
+        platform: "macos",
+        architecture: "arm64",
+        url: "https://github.com/ClawClientMC/website/releases/download/v0.1.0/ClawClient-0.1.0-arm64.dmg",
+        filename: "ClawClient-0.1.0-arm64.dmg",
+      },
+      {
+        platform: "linux",
+        architecture: "x64",
+        url: "https://github.com/ClawClientMC/website/releases/download/v0.1.0/ClawClient-0.1.0-x64.AppImage",
+        filename: "ClawClient-0.1.0-x64.AppImage",
+      },
+    ],
     changes: [
       {
         category: "Launcher",
@@ -76,4 +108,26 @@ export async function getRelease(
 ): Promise<ReleaseEntry | null> {
   const releases = await getReleases();
   return releases.find((r) => r.version === version) ?? null;
+}
+
+export async function getLatestRelease(): Promise<ReleaseEntry | null> {
+  const releases = await getReleases();
+  return releases[0] ?? null;
+}
+
+export function getDownloadForPlatform(
+  release: ReleaseEntry,
+  platform: Platform,
+): DownloadArtifact | null {
+  return release.downloads.find((d) => d.platform === platform) ?? null;
+}
+
+export function getAllPlatforms(
+  release: ReleaseEntry,
+): ReadonlyArray<Platform> {
+  const platforms = new Set<Platform>();
+  for (const download of release.downloads) {
+    platforms.add(download.platform);
+  }
+  return Array.from(platforms);
 }
