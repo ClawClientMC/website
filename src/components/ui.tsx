@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { PropsWithChildren, ReactNode } from "react";
 
 type ButtonProps = PropsWithChildren<{
@@ -116,5 +117,71 @@ export function TrustCallout({ children }: Readonly<{ children: ReactNode }>) {
       </span>
       <div>{children}</div>
     </aside>
+  );
+}
+
+export function StatusBadge({
+  children,
+  tone = "development",
+}: Readonly<{
+  children: string;
+  tone?: "available" | "development" | "planned";
+}>) {
+  return <span className={"status status--" + tone}>{children}</span>;
+}
+
+/**
+ * A faithful presentation of the current launcher hierarchy. It is a product
+ * interface reference, not a remote server response or a simulated metric.
+ */
+export function LauncherPreview({
+  label = "Current ClawClient launcher interface",
+}: Readonly<{ label?: string }>) {
+  return (
+    <figure className="launcher-preview">
+      <div className="launcher-preview__topbar">
+        <div className="launcher-preview__brand">
+          <Image alt="" height={30} priority src="/claw-logo.webp" width={30} />
+          <strong>ClawClient</strong>
+        </div>
+        <div aria-hidden="true" className="launcher-preview__nav">
+          <span className="is-current">Home</span>
+          <span>Profiles</span>
+          <span>Mods</span>
+        </div>
+        <span className="launcher-preview__account">Guest</span>
+      </div>
+      <div className="launcher-preview__body">
+        <div className="launcher-preview__main">
+          <div className="launcher-preview__heading">
+            <div>
+              <span>ClawClient</span>
+              <strong>Ready to play</strong>
+            </div>
+            <span>Desktop launcher</span>
+          </div>
+          <div className="launcher-preview__play-panel">
+            <div className="launcher-preview__art">
+              <Image alt="" fill sizes="(max-width: 700px) 42vw, 20vw" src="/claw-logo.webp" />
+            </div>
+            <div className="launcher-preview__play-copy">
+              <span>Selected profile</span>
+              <strong>Claw Optimized</strong>
+              <p>Performance-focused Minecraft setup</p>
+            </div>
+            <div className="launcher-preview__play-action">Play</div>
+          </div>
+        </div>
+        <aside className="launcher-preview__side">
+          <span>Next step</span>
+          <strong>Choose an account</strong>
+          <p>Microsoft and local profiles stay in one place.</p>
+          <div className="launcher-preview__side-line" />
+          <span>Profile tools</span>
+          <strong>Mods, versions, settings</strong>
+        </aside>
+      </div>
+      <figcaption>{label}</figcaption>
+    </figure>
   );
 }
