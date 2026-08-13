@@ -1047,6 +1047,13 @@ p {
   color: var(--text);
 }
 
+.campaign-disclosure {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
 @media (max-width: 66rem) {
   .hero > .container {
     grid-template-columns: minmax(0, 0.8fr) minmax(25rem, 1.2fr);
