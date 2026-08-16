@@ -1,39 +1,43 @@
-import { z } from "zod";
-
-const optionalUrl = z
-  .string()
-  .url("must be an absolute URL")
-  .optional()
-  .or(z.literal(""));
-
-const publicEnvironmentSchema = z.object({
-  NEXT_PUBLIC_SITE_URL: optionalUrl,
-  NEXT_PUBLIC_RELEASES_API_URL: optionalUrl,
-});
+function parseOptionalUrl(
+  value: string | undefined,
+): string | undefined {
+  if (!value || value === "") return undefined;
+  try {
+    new URL(value);
+    return value;
+  } catch {
+    throw new Error(`must be an absolute URL, got: ${value}`);
+  }
+}
 
 export type PublicEnvironment = {
   releasesApiUrl?: string;
   siteUrl: string;
+  analyticsMeasurementId?: string;
 };
 
 export function getPublicEnvironment(
   environment: Record<string, string | undefined> = process.env,
 ): PublicEnvironment {
-  const result = publicEnvironmentSchema.safeParse({
-    NEXT_PUBLIC_RELEASES_API_URL: environment.NEXT_PUBLIC_RELEASES_API_URL,
-    NEXT_PUBLIC_SITE_URL: environment.NEXT_PUBLIC_SITE_URL,
-  });
+  const siteUrlRaw = environment.NEXT_PUBLIC_SITE_URL;
+  const releasesApiUrlRaw = environment.NEXT_PUBLIC_RELEASES_API_URL;
+  const analyticsId = environment.NEXT_PUBLIC_ANALYTICS_MEASUREMENT_ID;
 
-  if (!result.success) {
-    const messages = result.error.issues
-      .map((issue) => `${issue.path.join(".")} ${issue.message}`)
-      .join("; ");
-    throw new Error(`Invalid public environment configuration: ${messages}`);
+  let siteUrl: string | undefined;
+  let releasesApiUrl: string | undefined;
+
+  try {
+    siteUrl = parseOptionalUrl(siteUrlRaw);
+    releasesApiUrl = parseOptionalUrl(releasesApiUrlRaw);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    throw new Error(`Invalid public environment configuration: ${message}`);
   }
 
   return {
-    releasesApiUrl: result.data.NEXT_PUBLIC_RELEASES_API_URL || undefined,
-    siteUrl: result.data.NEXT_PUBLIC_SITE_URL || "https://clawclient.net",
+    releasesApiUrl: releasesApiUrl || undefined,
+    siteUrl: siteUrl || "https://clawclient.net",
+    analyticsMeasurementId: analyticsId || undefined,
   };
 }
 

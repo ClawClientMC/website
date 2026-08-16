@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 
 import { Button, Section, StatusBadge } from "@/components/ui";
+import { TrackedDownloadButton } from "@/components/tracked-download";
+import { parseAttribution } from "@/lib/campaigns";
 import {
   getLatestRelease,
   getDownloadForPlatform,
@@ -42,11 +44,17 @@ const platformLabels: Record<Platform, string> = {
   linux: "Linux",
 };
 
-export default async function DownloadPage() {
+type PageProps = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
+
+export default async function DownloadPage({ searchParams }: PageProps) {
   const release = await getLatestRelease();
   const headersList = await headers();
   const userAgent = headersList.get("user-agent") ?? "";
   const detectedPlatform = detectPlatform(userAgent);
+  const query = await searchParams;
+  const attribution = parseAttribution(query);
 
   if (!release) {
     return (
@@ -82,9 +90,14 @@ export default async function DownloadPage() {
           </p>
           {primaryDownload ? (
             <div className="button-row">
-              <Button href={primaryDownload.url}>
+              <TrackedDownloadButton
+                href={primaryDownload.url}
+                platform={detectedPlatform}
+                attribution={attribution}
+                className="button button--primary"
+              >
                 Download for {platformLabels[detectedPlatform]}
-              </Button>
+              </TrackedDownloadButton>
               <Button href={`/changelog/${release.version}`} tone="quiet">
                 Release notes
               </Button>
@@ -130,7 +143,9 @@ export default async function DownloadPage() {
                     <p className="eyebrow">{platformLabels[platform]}</p>
                     <StatusBadge
                       tone={
-                        platform === detectedPlatform ? "available" : "development"
+                        platform === detectedPlatform
+                          ? "available"
+                          : "development"
                       }
                     >
                       {platform === detectedPlatform ? "Detected" : "Other"}
@@ -143,9 +158,14 @@ export default async function DownloadPage() {
                         {artifact.filename} &middot; {artifact.architecture}
                       </p>
                       <div className="button-row">
-                        <Button href={artifact.url}>
+                        <TrackedDownloadButton
+                          href={artifact.url}
+                          platform={platform}
+                          attribution={attribution}
+                          className="button button--primary"
+                        >
                           Download {platformLabels[platform]}
-                        </Button>
+                        </TrackedDownloadButton>
                       </div>
                       {artifact.sha256 && (
                         <p className="download-meta">
