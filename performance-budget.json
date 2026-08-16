@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json.schemastore.org/lighthouse-budget.json",
+  "budgets": [
+    {
+      "path": "/",
+      "resourceSizes": [
+        { "resourceType": "total", "budget": 800 },
+        { "resourceType": "script", "budget": 600 },
+        { "resourceType": "stylesheet", "budget": 50 },
+        { "resourceType": "image", "budget": 200 },
+        { "resourceType": "font", "budget": 60 },
+        { "resourceType": "document", "budget": 30 },
+        { "resourceType": "other", "budget": 20 }
+      ],
+      "resourceCounts": [
+        { "resourceType": "script", "budget": 15 },
+        { "resourceType": "stylesheet", "budget": 2 },
+        { "resourceType": "image", "budget": 10 },
+        { "resourceType": "font", "budget": 3 },
+        { "resourceType": "third-party", "budget": 0 }
+      ],
+      "timings": [
+        { "metric": "largest-contentful-paint", "budget": 2500 },
+        { "metric": "cumulative-layout-shift", "budget": 0.1 },
+        { "metric": "first-contentful-paint", "budget": 1800 },
+        { "metric": "interactive", "budget": 3500 },
+        { "metric": "total-blocking-time", "budget": 200 }
+      ]
+    },
+    {
+      "path": "/download",
+      "resourceSizes": [
+        { "resourceType": "total", "budget": 800 }
+      ],
+      "timings": [
+        { "metric": "largest-contentful-paint", "budget": 2500 },
+        { "metric": "cumulative-layout-shift", "budget": 0.1 }
+      ]
+    },
+    {
+      "path": "/features",
+      "resourceSizes": [
+        { "resourceType": "total", "budget": 800 }
+      ],
+      "timings": [
+        { "metric": "largest-contentful-paint", "budget": 2500 },
+        { "metric": "cumulative-layout-shift", "budget": 0.1 }
+      ]
+    }
+  ]
+}
