@@ -5,14 +5,33 @@ import { isAuthConfigured } from "@/lib/auth";
 
 const accountNav = [
   { href: "/account", label: "Overview" },
+  { href: "/account/cosmetics", label: "Cosmetics" },
   { href: "/account/identities", label: "Minecraft Identities" },
   { href: "/account/security", label: "Privacy & Security" },
 ];
 
-export function AccountNav({ currentPath }: { currentPath: string }) {
+export function AccountNav({
+  currentPath,
+  hasPartner = false,
+  hasCreator = false,
+}: {
+  currentPath: string;
+  hasPartner?: boolean;
+  hasCreator?: boolean;
+}) {
+  const navItems = [...accountNav];
+
+  if (hasPartner) {
+    navItems.push({ href: "/account/partner", label: "Partner" });
+  }
+
+  if (hasCreator) {
+    navItems.push({ href: "/account/creator", label: "Creator" });
+  }
+
   return (
     <nav aria-label="Account navigation" className="account-nav">
-      {accountNav.map((item) => (
+      {navItems.map((item) => (
         <Link
           aria-current={currentPath === item.href ? "page" : undefined}
           className={
@@ -32,11 +51,22 @@ export function AccountNav({ currentPath }: { currentPath: string }) {
 export function AccountShell({
   children,
   currentPath,
-}: Readonly<{ children: ReactNode; currentPath: string }>) {
+  hasPartner = false,
+  hasCreator = false,
+}: Readonly<{
+  children: ReactNode;
+  currentPath: string;
+  hasPartner?: boolean;
+  hasCreator?: boolean;
+}>) {
   return (
     <div className="account-shell">
       <aside className="account-shell__sidebar">
-        <AccountNav currentPath={currentPath} />
+        <AccountNav
+          currentPath={currentPath}
+          hasPartner={hasPartner}
+          hasCreator={hasCreator}
+        />
       </aside>
       <main className="account-shell__content" id="main-content">
         {children}

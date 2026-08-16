@@ -1464,6 +1464,285 @@ p {
   color: var(--text);
 }
 
+/* Cosmetics page */
+.cosmetics-layout {
+  display: grid;
+  grid-template-columns: 1fr 20rem;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.cosmetics-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.cosmetics-section h3 {
+  margin-bottom: var(--space-3);
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.cosmetics-empty {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.cosmetics-error {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid #7a2e2e;
+  border-radius: var(--radius-control);
+  background: #2a1215;
+  color: #f4a2a2;
+  font-size: 0.8125rem;
+}
+
+.cosmetics-equipped-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.cosmetics-equipped-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--panel);
+}
+
+.cosmetics-equipped-card__preview {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-control);
+  overflow: hidden;
+}
+
+.cosmetics-equipped-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cosmetics-equipped-card__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: var(--panel-raised);
+  color: var(--muted);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.cosmetics-equipped-card__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.cosmetics-equipped-card__name {
+  font-size: 0.875rem;
+  font-weight: 650;
+  color: var(--text);
+}
+
+.cosmetics-equipped-card__type {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.cosmetics-unequip-btn {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+}
+
+.cosmetics-owned-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: var(--space-3);
+}
+
+.cosmetics-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--panel);
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    background var(--duration-fast) var(--ease-out);
+  text-align: center;
+  font: inherit;
+  color: inherit;
+  width: 100%;
+}
+
+.cosmetics-card:hover {
+  border-color: var(--muted);
+}
+
+.cosmetics-card--selected {
+  border-color: var(--accent);
+  background: var(--panel-raised);
+}
+
+.cosmetics-card--equipped {
+  border-color: var(--accent);
+}
+
+.cosmetics-card__preview {
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--radius-control);
+  overflow: hidden;
+}
+
+.cosmetics-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cosmetics-card__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: var(--panel-raised);
+  color: var(--muted);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.cosmetics-card__name {
+  font-size: 0.8125rem;
+  font-weight: 650;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.cosmetics-card__type {
+  font-size: 0.6875rem;
+  color: var(--muted);
+}
+
+.cosmetics-card__equipped-badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cosmetics-preview {
+  position: sticky;
+  top: 6rem;
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--panel);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.cosmetics-preview h3 {
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.cosmetics-preview__visual {
+  aspect-ratio: 1;
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+  background: var(--panel-raised);
+}
+
+.cosmetics-preview__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cosmetics-preview__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--muted);
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.cosmetics-preview__description {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.cosmetics-preview__details {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-2) var(--space-4);
+  font-size: 0.8125rem;
+}
+
+.cosmetics-preview__details dt {
+  color: var(--muted);
+  font-weight: 650;
+}
+
+.cosmetics-preview__details dd {
+  color: var(--text);
+}
+
+.cosmetics-rarity--common { color: var(--muted); }
+.cosmetics-rarity--uncommon { color: #6bc76b; }
+.cosmetics-rarity--rare { color: #5b9cf4; }
+.cosmetics-rarity--epic { color: #b07ef0; }
+.cosmetics-rarity--legendary { color: #f0a840; }
+
+.cosmetics-preview__actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.cosmetics-preview__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 12rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.account-section__description {
+  color: var(--muted);
+  font-size: 0.875rem;
+  max-width: 42rem;
+}
+
 @media (max-width: 52rem) {
   .account-shell {
     grid-template-columns: 1fr;
@@ -1482,6 +1761,14 @@ p {
   .account-nav__link {
     padding: 0.5rem 0.75rem;
     font-size: 0.8125rem;
+  }
+
+  .cosmetics-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .cosmetics-preview {
+    position: static;
   }
 }
 
