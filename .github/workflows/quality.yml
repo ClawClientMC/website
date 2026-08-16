@@ -25,7 +25,5 @@ jobs:
       - run: npm run typecheck
       - run: npm run test
       - run: npm run build
-      - name: Check bundle sizes
-        run: node scripts/check-bundle-size.mjs
-      - name: Run accessibility audit
-        run: npx @axe-core/cli@4 http://localhost:3000 --stdout 2>/dev/null || echo "a11y audit requires running server - skipped in CI"
+      - run: npm run check:accessibility
+      - run: npm run check:performance

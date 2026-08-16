@@ -31,6 +31,7 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-fast: 160ms;
   font-family: "Segoe UI Variable", "Aptos", "Segoe UI", system-ui, sans-serif;
+  font-display: swap;
   background: var(--ink);
   color: var(--text);
   font-synthesis: none;
@@ -82,6 +83,18 @@ button {
 }
 
 :focus-visible {
+  outline: 0.1875rem solid var(--accent-bright);
+  outline-offset: 0.25rem;
+  border-radius: 0.125rem;
+}
+
+/* High contrast focus for keyboard navigation */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Skip link - ensure it's always visible when focused */
+.skip-link:focus {
   outline: 0.1875rem solid var(--accent-bright);
   outline-offset: 0.25rem;
 }
@@ -1278,6 +1291,59 @@ p {
 
   .button-row .button {
     width: 100%;
+  }
+}
+
+/* Very small screens - ensure content doesn't overflow */
+@media (max-width: 23.5rem) {
+  :root {
+    --page-gutter: 1rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  .site-header__inner {
+    min-height: 3.5rem;
+  }
+
+  .brand {
+    font-size: 0.9375rem;
+  }
+
+  .brand__mark {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .button {
+    min-height: 2.5rem;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.8125rem;
+  }
+
+  .launcher-preview {
+    border-radius: var(--radius-panel);
+  }
+
+  .launcher-preview__play-panel {
+    min-height: 12rem;
+    padding: 1rem;
+  }
+
+  .launcher-preview__play-copy strong {
+    font-size: 1.25rem;
+  }
+
+  .launcher-preview__play-action {
+    min-width: 5rem;
+    padding: 0.75rem;
+    font-size: 0.75rem;
   }
 }
 

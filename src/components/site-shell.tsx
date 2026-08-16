@@ -59,9 +59,7 @@ export function SiteHeader() {
           </summary>
           <nav aria-label="Mobile">
             {navigation.map((item) => (
-              <Link href={item.href} key={item.href}>
-                {item.label}
-              </Link>
+              <NavLink href={item.href} key={item.href} label={item.label} />
             ))}
             <Link className="button button--primary" href="/download">
               Get ClawClient
