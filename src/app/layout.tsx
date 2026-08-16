@@ -1,9 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 
 import { publicEnvironment } from "@/env";
 import { SiteShell } from "@/components/site-shell";
 
 import "./globals.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0f0f0f",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(publicEnvironment.siteUrl),
@@ -37,9 +43,6 @@ export const metadata: Metadata = {
   icons: {
     icon: "/claw-logo.webp",
     apple: "/claw-logo.webp",
-  },
-  other: {
-    "theme-color": "#0f0f0f",
   },
 };
 

@@ -99,6 +99,10 @@ button {
   outline-offset: 0.25rem;
 }
 
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -827,6 +831,7 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
+  min-height: 2.75rem;
   padding: 0.875rem 0;
   cursor: pointer;
   color: var(--text);
@@ -1350,5 +1355,33 @@ p {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+  }
+
+  .site-header,
+  .site-footer,
+  .site-menu,
+  .skip-link,
+  .launcher-preview {
+    display: none !important;
+  }
+
+  .section {
+    padding-block: 1rem !important;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75rem;
+    color: #555;
   }
 }
