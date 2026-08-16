@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 export type CampaignEntry = {
   slug: string;
   title: string;
@@ -98,45 +96,54 @@ const campaigns: ReadonlyArray<CampaignEntry> = [
   },
 ];
 
-const ALLOWED_UTM_PARAMS = [
+export const ALLOWED_UTM_PARAMS = [
   "utm_source",
   "utm_medium",
   "utm_campaign",
   "utm_content",
 ] as const;
 
-const attributionSchema = z.object({
-  utm_source: z.string().max(100).optional(),
-  utm_medium: z.string().max(100).optional(),
-  utm_campaign: z.string().max(100).optional(),
-  utm_content: z.string().max(100).optional(),
-  ref: z
-    .string()
-    .max(100)
-    .regex(/^[a-zA-Z0-9_-]+$/)
-    .optional(),
-});
+export const ALLOWED_UTM_KEYS: ReadonlyArray<string> = ALLOWED_UTM_PARAMS;
 
-export type Attribution = z.infer<typeof attributionSchema>;
+const MAX_ATTRIBUTION_LENGTH = 100;
+const REF_PATTERN = /^[a-zA-Z0-9_-]+$/;
+
+export type Attribution = {
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  utm_content?: string;
+  ref?: string;
+};
 
 export function parseAttribution(
   searchParams: Record<string, string | string[] | undefined>,
 ): Attribution {
-  const sanitized: Record<string, string | undefined> = {};
+  const sanitized: Attribution = {};
 
   for (const key of ALLOWED_UTM_PARAMS) {
     const value = searchParams[key];
-    if (typeof value === "string") {
+    if (
+      typeof value === "string" &&
+      value.length > 0 &&
+      value.length <= MAX_ATTRIBUTION_LENGTH
+    ) {
       sanitized[key] = value;
     }
   }
 
   if (typeof searchParams.ref === "string") {
-    sanitized.ref = searchParams.ref;
+    const ref = searchParams.ref;
+    if (
+      ref.length > 0 &&
+      ref.length <= MAX_ATTRIBUTION_LENGTH &&
+      REF_PATTERN.test(ref)
+    ) {
+      sanitized.ref = ref;
+    }
   }
 
-  const result = attributionSchema.safeParse(sanitized);
-  return result.success ? result.data : {};
+  return sanitized;
 }
 
 export function getAllCampaigns(): ReadonlyArray<CampaignEntry> {
