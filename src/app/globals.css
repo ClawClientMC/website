@@ -1075,15 +1075,15 @@ p {
 
 .campaign-disclosure {
   margin-top: var(--space-4);
-  font-size: var(--text-sm);
-  color: var(--text-muted);
+  font-size: 0.8125rem;
+  color: var(--subtle);
   font-style: italic;
 }
 
 .download-meta {
   margin-top: var(--space-3);
-  font-size: var(--text-sm);
-  color: var(--text-muted);
+  font-size: 0.8125rem;
+  color: var(--subtle);
   font-family: monospace;
   word-break: break-all;
 }
