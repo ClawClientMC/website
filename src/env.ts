@@ -16,6 +16,10 @@ export type PublicEnvironment = {
   analyticsMeasurementId?: string;
 };
 
+export type ServerEnvironment = {
+  platformApiUrl?: string;
+};
+
 export function getPublicEnvironment(
   environment: Record<string, string | undefined> = process.env,
 ): PublicEnvironment {
@@ -41,4 +45,24 @@ export function getPublicEnvironment(
   };
 }
 
+export function getServerEnvironment(
+  environment: Record<string, string | undefined> = process.env,
+): ServerEnvironment {
+  const platformApiUrlRaw = environment.PLATFORM_API_URL;
+
+  let platformApiUrl: string | undefined;
+
+  try {
+    platformApiUrl = parseOptionalUrl(platformApiUrlRaw);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    throw new Error(`Invalid server environment configuration: ${message}`);
+  }
+
+  return {
+    platformApiUrl: platformApiUrl || undefined,
+  };
+}
+
 export const publicEnvironment = getPublicEnvironment();
+export const serverEnvironment = getServerEnvironment();
