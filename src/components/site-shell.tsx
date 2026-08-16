@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
 const navigation = [
@@ -12,8 +15,22 @@ const navigation = [
 function Brand() {
   return (
     <Link aria-label="ClawClient home" className="brand" href="/">
-      <Image alt="" className="brand__mark" height={34} src="/claw-logo.webp" width={34} />
+      <Image alt="" className="brand__mark" height={34} priority src="/claw-logo.webp" width={34} />
       <span>ClawClient</span>
+    </Link>
+  );
+}
+
+function NavLink({ href, label }: { href: string; label: string }) {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+
+  return (
+    <Link
+      aria-current={isActive ? "page" : undefined}
+      href={href}
+    >
+      {label}
     </Link>
   );
 }
@@ -25,24 +42,19 @@ export function SiteHeader() {
         <Brand />
         <nav aria-label="Primary navigation" className="site-nav">
           {navigation.map((item) => (
-            <Link href={item.href} key={item.href}>
-              {item.label}
-            </Link>
+            <NavLink href={item.href} key={item.href} label={item.label} />
           ))}
         </nav>
         <Link className="button button--primary site-header__action" href="/download">
           Get ClawClient
         </Link>
         <details className="site-menu">
-          <summary>
-            <span className="sr-only">Open navigation menu</span>
+          <summary aria-label="Open navigation menu">
             <span aria-hidden="true">Menu</span>
           </summary>
           <nav aria-label="Mobile navigation">
             {navigation.map((item) => (
-              <Link href={item.href} key={item.href}>
-                {item.label}
-              </Link>
+              <NavLink href={item.href} key={item.href} label={item.label} />
             ))}
             <Link className="button button--primary" href="/download">
               Get ClawClient

@@ -98,9 +98,9 @@ export function FaqAccordion({
   items,
 }: Readonly<{ items: ReadonlyArray<{ question: string; answer: string }> }>) {
   return (
-    <div className="faq-list">
+    <div aria-label="Frequently asked questions" className="faq-list" role="list">
       {items.map((item) => (
-        <details key={item.question}>
+        <details key={item.question} role="listitem">
           <summary>{item.question}</summary>
           <p>{item.answer}</p>
         </details>
