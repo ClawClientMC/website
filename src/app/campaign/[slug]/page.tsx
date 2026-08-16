@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { Button, Section, StatusBadge } from "@/components/ui";
+import { CampaignViewTracker } from "@/components/campaign-tracker";
 import {
   getCampaignBySlug,
   getAllCampaigns,
@@ -81,6 +82,7 @@ export default async function CampaignPage({
 
   return (
     <main id="main-content">
+      <CampaignViewTracker campaign={slug} attribution={attribution} />
       <Section className="features-hero">
         <div className="features-hero__copy">
           <p className="eyebrow">
@@ -156,9 +158,7 @@ export default async function CampaignPage({
         <div className="final-cta">
           <p className="eyebrow">Ready to try it</p>
           <h2>Make your next Minecraft setup a clear one.</h2>
-          <p>
-            Download ClawClient and see the product direction for yourself.
-          </p>
+          <p>Download ClawClient and see the product direction for yourself.</p>
           <div className="button-row">
             <Button href={downloadHref}>{campaign.cta.primary}</Button>
             <Button href="/features" tone="quiet">

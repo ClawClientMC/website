@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
 const navigation = [
@@ -9,11 +12,30 @@ const navigation = [
   { href: "/trust", label: "Trust" },
 ];
 
+function isActive(href: string, pathname: string): boolean {
+  if (href === "/") return pathname === "/";
+  return pathname.startsWith(href);
+}
+
 function Brand() {
   return (
     <Link aria-label="ClawClient home" className="brand" href="/">
-      <Image alt="" className="brand__mark" height={34} src="/claw-logo.webp" width={34} />
+      <Image alt="" className="brand__mark" height={34} priority src="/claw-logo.webp" width={34} />
       <span>ClawClient</span>
+    </Link>
+  );
+}
+
+function NavLink({ href, label }: { href: string; label: string }) {
+  const pathname = usePathname();
+  const active = isActive(href, pathname);
+  return (
+    <Link
+      href={href}
+      aria-current={active ? "page" : undefined}
+      className={active ? "is-current" : undefined}
+    >
+      {label}
     </Link>
   );
 }
@@ -23,26 +45,21 @@ export function SiteHeader() {
     <header className="site-header">
       <div className="site-header__inner">
         <Brand />
-        <nav aria-label="Primary navigation" className="site-nav">
+        <nav aria-label="Primary" className="site-nav">
           {navigation.map((item) => (
-            <Link href={item.href} key={item.href}>
-              {item.label}
-            </Link>
+            <NavLink href={item.href} key={item.href} label={item.label} />
           ))}
         </nav>
         <Link className="button button--primary site-header__action" href="/download">
           Get ClawClient
         </Link>
         <details className="site-menu">
-          <summary>
-            <span className="sr-only">Open navigation menu</span>
+          <summary aria-label="Open navigation menu">
             <span aria-hidden="true">Menu</span>
           </summary>
-          <nav aria-label="Mobile navigation">
+          <nav aria-label="Mobile">
             {navigation.map((item) => (
-              <Link href={item.href} key={item.href}>
-                {item.label}
-              </Link>
+              <NavLink href={item.href} key={item.href} label={item.label} />
             ))}
             <Link className="button button--primary" href="/download">
               Get ClawClient
@@ -56,11 +73,11 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="site-footer">
+    <footer className="site-footer" role="contentinfo">
       <div className="site-footer__inner">
         <Brand />
         <p>Built for a more focused Minecraft desktop experience.</p>
-        <nav aria-label="Footer navigation">
+        <nav aria-label="Footer">
           <Link href="/download">Download</Link>
           <Link href="/features">Features</Link>
           <Link href="/trust">Trust &amp; Safety</Link>
@@ -69,7 +86,12 @@ export function SiteFooter() {
           <Link href="/changelog">Changelog</Link>
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>
-          <a href="https://discord.com" rel="noreferrer" target="_blank">
+          <a
+            href="https://discord.com"
+            rel="noreferrer"
+            target="_blank"
+            aria-label="Discord (opens in new tab)"
+          >
             Discord
           </a>
         </nav>

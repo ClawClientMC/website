@@ -10,6 +10,7 @@ describe("getPublicEnvironment", () => {
     expect(getPublicEnvironment({})).toEqual({
       releasesApiUrl: undefined,
       siteUrl: "https://clawclient.net",
+      analyticsMeasurementId: undefined,
     });
   });
 
@@ -22,6 +23,19 @@ describe("getPublicEnvironment", () => {
     ).toEqual({
       releasesApiUrl: "https://releases.clawclient.net/v1",
       siteUrl: "https://preview.clawclient.net",
+      analyticsMeasurementId: undefined,
+    });
+  });
+
+  it("accepts analytics measurement ID", () => {
+    expect(
+      getPublicEnvironment({
+        NEXT_PUBLIC_ANALYTICS_MEASUREMENT_ID: "G-XXXXXXXXXX",
+      }),
+    ).toEqual({
+      releasesApiUrl: undefined,
+      siteUrl: "https://clawclient.net",
+      analyticsMeasurementId: "G-XXXXXXXXXX",
     });
   });
 

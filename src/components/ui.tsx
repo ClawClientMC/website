@@ -7,7 +7,12 @@ type ButtonProps = PropsWithChildren<{
   tone?: "primary" | "quiet";
   disabled?: boolean;
   className?: string;
+  "aria-label"?: string;
 }>;
+
+function isExternal(href: string): boolean {
+  return href.startsWith("http://") || href.startsWith("https://");
+}
 
 export function Button({
   children,
@@ -15,13 +20,30 @@ export function Button({
   tone = "primary",
   disabled = false,
   className = "",
+  "aria-label": ariaLabel,
 }: Readonly<ButtonProps>) {
   const classes = "button button--" + tone + (className ? " " + className : "");
 
   if (href) {
+    if (isExternal(href)) {
+      return (
+        <a
+          aria-label={ariaLabel}
+          className={classes}
+          href={href}
+          rel="noreferrer"
+          target="_blank"
+        >
+          {children}
+          <span className="sr-only"> (opens in new tab)</span>
+        </a>
+      );
+    }
+
     return (
       <Link
         aria-disabled={disabled || undefined}
+        aria-label={ariaLabel}
         className={classes}
         href={disabled ? "/" : href}
         tabIndex={disabled ? -1 : undefined}
@@ -32,7 +54,7 @@ export function Button({
   }
 
   return (
-    <button className={classes} disabled={disabled} type="button">
+    <button aria-label={ariaLabel} className={classes} disabled={disabled} type="button">
       {children}
     </button>
   );
@@ -98,9 +120,9 @@ export function FaqAccordion({
   items,
 }: Readonly<{ items: ReadonlyArray<{ question: string; answer: string }> }>) {
   return (
-    <div className="faq-list">
+    <div className="faq-list" role="list">
       {items.map((item) => (
-        <details key={item.question}>
+        <details key={item.question} role="listitem">
           <summary>{item.question}</summary>
           <p>{item.answer}</p>
         </details>
@@ -162,7 +184,7 @@ export function LauncherPreview({
           </div>
           <div className="launcher-preview__play-panel">
             <div className="launcher-preview__art">
-              <Image alt="" fill sizes="(max-width: 700px) 42vw, 20vw" src="/claw-logo.webp" />
+              <Image alt="" fill loading="lazy" sizes="(max-width: 700px) 42vw, 20vw" src="/claw-logo.webp" />
             </div>
             <div className="launcher-preview__play-copy">
               <span>Selected profile</span>

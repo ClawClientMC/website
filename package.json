@@ -14,7 +14,9 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "check": "npm run lint && npm run typecheck && npm run test && npm run build"
+    "check:accessibility": "node scripts/check-accessibility.mjs",
+    "check:performance": "node scripts/check-performance-budgets.mjs",
+    "check": "npm run lint && npm run typecheck && npm run test && npm run build && npm run check:accessibility && npm run check:performance"
   },
   "dependencies": {
     "next": "16.3.0",
